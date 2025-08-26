@@ -1,0 +1,134 @@
+Eficiência Tempo Algoritmo
+
+Maior eficacia pra menor
+
+O(log2 n)
+O(n)
+O(n + log2 n)
+O(n2)
+O(n!)
+
+
+
+| Tipo de algoritmo | Notação O    | Exemplo                                 |
+| ----------------- | ------------ | --------------------------------------- |
+| Constante         | O(1)         | Acesso direto a um elemento de array    |
+| Logarítmico       | O(log n)     | Busca binária                           |
+| Linear            | O(n)         | Percorrer uma lista                     |
+| Linearítmico      | O(n log n)   | Merge Sort, Quick Sort (médio caso)     |
+| Quadrático        | O(n²)        | Bubble Sort, algoritmos de força bruta  |
+| Cúbico            | O(n³)        | Multiplicação de matrizes simples       |
+| Exponencial       | O(2ⁿ), O(n!) | Algoritmos de força bruta, backtracking |
+
+
+| Nome  | O que mede?                                                             | Exemplo simples                  |
+| ----- | ----------------------------------------------------------------------- | -------------------------------- |
+| **O** | Quanto tempo ele pode **demorar no pior caso**                          | "Até no máximo 10 minutos"       |
+| **Ω** | Quanto tempo ele pode **demorar no melhor caso**                        | "Pelo menos 3 minutos"           |
+| **Θ** | Quando ele **sempre demora mais ou menos igual**, sem grandes surpresas | "Leva cerca de 5 minutos sempre" |
+
+
+Função assintótica
+
+f=O(n) se f(n) <= C.n
+f=Ω(n) se f(n) >= C.n
+f=Θ(n) se f=O(n) & f=Ω(n)
+
+
+
+def selection_sort(lista):
+    for i in range(len(lista)):
+        # Assume que o menor é o atual
+        menor = i
+
+        # Procura o menor no resto da lista
+        for j in range(i + 1, len(lista)):
+            if lista[j] < lista[menor]:
+                menor = j
+
+        # Troca o menor com o número na posição i
+        lista[i], lista[menor] = lista[menor], lista[i]
+
+    return lista
+
+print(selection_sort([7, 3, 5, 2, 8]))
+# Saída: [2, 3, 5, 7, 8]
+
+
+##Merge Sort
+
+
+##Recursão
+ - Toda função recursiva tem 2 casos, o caso-base e o caso recursivo.
+ - Uma pilha tem 2 operações, Push e Pop.
+ - Tdoas as chamadas de função vão para a pilha de chamada.
+ - A pilha de chamada pode ficar muito grande e ocupar muita memória.
+
+
+Função soma (recursiva)
+
+def soma(lst):
+    # caso base: lista vazia
+    if not lst:
+        return 0
+    # caso recursivo: 1º elemento + soma do restante
+    return lst[0] + soma(lst[1:])
+
+Contar o número de itens em uma lista (recursivo)
+
+def contar(lst):
+    if not lst:          # base: vazia tem 0 itens
+        return 0
+    return 1 + contar(lst[1:])  # conta 1 e segue no restante
+
+
+Encontrar o valor mais alto em uma lista (recursivo)
+Opção segura: lança erro para lista vazia.
+
+def maximo(lst):
+    if not lst:
+        raise ValueError("lista vazia não tem máximo")
+    if len(lst) == 1:        # base: só 1 elemento
+        return lst[0]
+    # compara o 1º com o máximo do restante
+    m_restante = maximo(lst[1:])
+    return lst[0] if lst[0] > m_restante else m_restante
+
+
+
+Caso base e caso recursivo da pesquisa binária
+Caso base: o intervalo ficou vazio (esquerda > direita) → o elemento não está na lista.
+
+Caso recursivo:
+
+Calcular meio.
+
+Se arr[meio] == alvo, retorna o índice.
+
+Se arr[meio] > alvo, busca à esquerda.
+
+Se arr[meio] < alvo, busca à direita.
+
+Implementação recursiva (lista ordenada):
+
+def busca_binaria(arr, alvo, esquerda=0, direita=None):
+    if direita is None:
+        direita = len(arr) - 1
+
+    # caso base: intervalo vazio
+    if esquerda > direita:
+        return -1  # não encontrado
+
+    meio = (esquerda + direita) // 2
+
+    if arr[meio] == alvo:
+        return meio
+    if arr[meio] > alvo:
+        return busca_binaria(arr, alvo, esquerda, meio - 1)
+    else:
+        return busca_binaria(arr, alvo, meio + 1, direita)
+
+
+
+
+
